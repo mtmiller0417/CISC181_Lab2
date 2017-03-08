@@ -109,10 +109,17 @@ public class Hand {
 		
 	}
 	
-	/*public static boolean isStraight(boolean isAce, ArrayList<Card> cards)
+	public static boolean isStraight(Hand h, HandScore hs)
 	{
-		
-	}*/
+		if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) &&
+				(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()) &&
+				(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()) &&
+				(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr()))
+		{			
+			return true;
+		}
+		return false;
+	}
 	
 	
 	
@@ -154,32 +161,41 @@ public class Hand {
 						(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank() == eRank.THREE) &&
 						(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == eRank.TWO))
 						{
-							isHandStraight = true;
-	
+							isHandStraight = true;	
 							hs.setHandStrength(eHandStrength.Straight);
 							hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
 						}
+				else
+				{
+					isHandStraight = true;
+				}
 			}
 			else
 			{
 				//Check if it's a general straight?
-				if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) &&
-						(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()) &&
-						(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()) &&
-						(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr())
-						)
+				if (isStraight(h, hs) == true)
 				{
-					
+					isHandStraight = true;				
+					hs.setHandStrength(eHandStrength.Straight);
+					hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
 				}
-				 // test
-				//int diff = (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) -1;
+				else
+				{
+					isHandStraight = false;
+				}
 			}
 		}
 		else if(!isAce)
 		{
 			//Check if it's a general straight?
+			if (isStraight(h, hs) == true)
+			{
+				isHandStraight = true;				
+				hs.setHandStrength(eHandStrength.Straight);
+				hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
+			}
 		}
-		return false;
+		return isHandStraight;
 	}	
 	
 	//TODO: Implement This Method
