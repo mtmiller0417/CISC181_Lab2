@@ -155,6 +155,7 @@ public class Hand {
 						(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == eRank.TWO))
 						{
 							isHandStraight = true;
+	
 							hs.setHandStrength(eHandStrength.Straight);
 							hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
 						}
@@ -166,6 +167,7 @@ public class Hand {
 				{
 					
 				}
+				// USE THIS BELOW
 				//int diff = (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) -1;
 			}
 		}
