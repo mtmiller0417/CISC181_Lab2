@@ -167,7 +167,7 @@ public class Hand {
 				{
 					
 				}
-				 
+				 //
 				//int diff = (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) -1;
 			}
 		}
