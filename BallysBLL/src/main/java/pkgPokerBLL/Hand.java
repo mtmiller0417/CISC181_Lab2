@@ -163,7 +163,11 @@ public class Hand {
 			else
 			{
 				//Check if it's a general straight?
-				if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()))
+				if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) &&
+						(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()) &&
+						(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()) &&
+						(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr())
+						)
 				{
 					
 				}
