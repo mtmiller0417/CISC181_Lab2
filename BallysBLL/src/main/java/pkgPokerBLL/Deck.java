@@ -37,12 +37,5 @@ public class Deck {
 		
 		Card k = DeckCards.remove(0);
 		return k;
-		
-		/*Card k = DeckCards.get(0);
-		DeckCards.remove(0);
-		Hand h = new Hand();
-		h.AddCardToHand(k);
-		System.out.println(h.getCardsInHand());
-		return k;*/
 	}
 }

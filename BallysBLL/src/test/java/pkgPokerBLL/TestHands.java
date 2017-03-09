@@ -426,7 +426,4 @@ public class TestHands {
 		
 		assertEquals(4,q.getHandScore().getKickers().size());
 		}
-		
-		
-		
 	}
