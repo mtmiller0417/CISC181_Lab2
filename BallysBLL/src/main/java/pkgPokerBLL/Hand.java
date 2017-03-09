@@ -95,7 +95,7 @@ public class Hand {
 /*	eSuit suit = h.getCardsInHand().get(0).geteSuitNbr();*/	
 	
 	
-	public static boolean isAce(ArrayList<Card> cards)
+	public static boolean isAce(ArrayList<Card> cards)//This is used to tell if there is an ace in the hand
 	{
 		//returns true if the first card in the hand is an ace
 		if (cards.get(eCardNo.FirstCard.getCardNo()).geteRank() == eRank.ACE)
@@ -109,7 +109,22 @@ public class Hand {
 		
 	}
 	
-	public static boolean isStraight(Hand h, HandScore hs)
+	
+	public static boolean isFlush(Hand h, HandScore hs)//This method is used by other methods, made to use less code
+	{
+		boolean isFlush =  false;
+		if((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteSuit().getiSuitNbr()) == (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteSuit().getiSuitNbr()) &&
+				(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteSuit().getiSuitNbr())  == (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteSuit().getiSuitNbr()) &&
+				(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteSuit().getiSuitNbr()) == (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteSuit().getiSuitNbr())  &&
+				(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteSuit().getiSuitNbr())  == (h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteSuit().getiSuitNbr()))
+		{
+			isFlush = true;
+			return true;
+		}
+		return isFlush;
+	}
+	
+	public static boolean isStraight(Hand h, HandScore hs)//This method is used by other methods, made to use less code
 	{
 		if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) &&
 				(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()) - 1 == (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()) &&
@@ -121,35 +136,9 @@ public class Hand {
 		return false;
 	}
 	
-	
-	
-	//TODO: Implement This Method
-	public static boolean isHandRoyalFlush(Hand h, HandScore hs)
+	public static boolean straightChecker(Hand h, HandScore hs)//This method is used by other methods, made to use less code
 	{
-		return false;
-	}
-	
-	//TODO: Implement This Method
-	public static boolean isHandStraightFlush(Hand h, HandScore hs)
-	{
-		return false;
-	}		//TODO: Implement This Method
-	public static boolean isHandFlush(Hand h, HandScore hs)
-	{
-		return false;
-	}
-	//TODO: Implement This Method
-	public static boolean isHandFourOfAKind(Hand h, HandScore hs)
-	{
-		return false;
-	}	
-	
-		
-	
-	//TODO: Implement This Method
-	public static boolean isHandStraight(Hand h, HandScore hs)
-	{
-		boolean isHandStraight = false;
+		boolean isStraight = false;
 		boolean isAce = isAce(h.getCardsInHand());
 		if(isAce)
 		{ 
@@ -160,14 +149,14 @@ public class Hand {
 						(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == eRank.FOUR) &&
 						(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank() == eRank.THREE) &&
 						(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == eRank.TWO))
-						{
-							isHandStraight = true;	
-							hs.setHandStrength(eHandStrength.Straight);
-							hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
-						}
+				{
+					isStraight = true;
+					return true;
+				}
 				else
 				{
-					isHandStraight = true;
+					isStraight = false;
+					return false;
 				}
 			}
 			else
@@ -175,13 +164,11 @@ public class Hand {
 				//Check if it's a general straight?
 				if (isStraight(h, hs) == true)
 				{
-					isHandStraight = true;				
-					hs.setHandStrength(eHandStrength.Straight);
-					hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
+					isStraight = true;				
 				}
 				else
 				{
-					isHandStraight = false;
+					isStraight = false;
 				}
 			}
 		}
@@ -190,10 +177,116 @@ public class Hand {
 			//Check if it's a general straight?
 			if (isStraight(h, hs) == true)
 			{
-				isHandStraight = true;				
-				hs.setHandStrength(eHandStrength.Straight);
-				hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
+				isStraight = true;				
 			}
+			else
+			{
+				isStraight = false;
+			}
+		}
+		return isStraight;
+	}
+	
+	
+	
+	//TODO: Implement This Method
+	public static boolean isHandRoyalFlush(Hand h, HandScore hs)
+	{
+		boolean isRoyalFlush = false;
+		if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == eRank.ACE ) &&
+				(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == eRank.KING) &&
+				(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank() == eRank.QUEEN) &&
+				(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == eRank.JACK)&&
+				(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank() == eRank.TEN))
+		{
+			if(straightChecker(h, hs))
+			{
+						isRoyalFlush = true;	
+						hs.setHandStrength(eHandStrength.RoyalFlush);
+						hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight bc it requires all 5 cards
+			}
+					
+		}
+		else
+		{
+			isRoyalFlush = false;
+		}
+		return isRoyalFlush;
+	}
+	
+	//TODO: Implement This Method
+	public static boolean isHandStraightFlush(Hand h, HandScore hs)
+	{
+		boolean isStraightflush = false;
+		if((isFlush(h, hs) && straightChecker(h, hs)) == true)
+		{
+			isStraightflush = true;
+		}
+		return isStraightflush;
+	}		
+	
+	//TODO: Implement This Method
+	public static boolean isHandFlush(Hand h, HandScore hs)
+	{
+		ArrayList<Card> kickers = new ArrayList<Card>();
+		boolean isFlush = false;
+		if (isFlush(h, hs))
+		{
+			isFlush = true;
+			hs.setHandStrength(eHandStrength.Flush);
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());
+			
+			/*kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));		
+			hs.setKickers(kickers);*/
+		}
+		
+		return isFlush;
+	}	
+	
+	
+	
+	//TODO: Implement This Method
+	public static boolean isHandFourOfAKind(Hand h, HandScore hs)
+	{
+		ArrayList<Card> kickers = new ArrayList<Card>();
+		
+		boolean isFourOfAKind = false;
+		//if first and fourth are the same rank
+		if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank()))
+		{
+			isFourOfAKind = true;
+			hs.setHandStrength(eHandStrength.FourOfAKind);
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());
+			
+			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));		
+			hs.setKickers(kickers);
+			
+		}
+		
+		else if ((h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()))				
+			{
+			isFourOfAKind = true;
+			hs.setHandStrength(eHandStrength.FourOfAKind);
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank());
+			//hs.setLoHand(null);
+			
+			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));				
+			hs.setKickers(kickers);
+			
+			}
+		return isFourOfAKind;
+	}	
+		
+	//TODO: Implement This Method
+	public static boolean isHandStraight(Hand h, HandScore hs)
+	{
+		boolean isHandStraight = false;
+		
+		if( straightChecker(h, hs) == true)
+		{
+			isHandStraight = true;	
+			hs.setHandStrength(eHandStrength.Straight);
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());// Only a high hand for straight b/c it requires all 5 cards
 		}
 		return isHandStraight;
 	}	
@@ -230,9 +323,8 @@ public class Hand {
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank());
 			hs.setLoHand(null);
 			
-			kickers.add(h.getCardsInHand().get(0));
-			kickers.add(h.getCardsInHand().get(1));
-			
+			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));			
 			hs.setKickers(kickers);
 			
 		}
